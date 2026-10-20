@@ -1,13 +1,21 @@
 package IsaVII.JobApp;
 
 import IsaVII.JobApp.model.JobPost;
+import IsaVII.JobApp.service.JobService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.lang.invoke.SerializedLambda;
+
 @Controller
 public class JobController {
+    
+    @Autowired
+    private JobService jobService;
     
     @GetMapping({"/","home"})
     public String home() {
@@ -23,7 +31,7 @@ public class JobController {
     
     @PostMapping("/handleForm")
     public String handleForm(JobPost jobPost) {
-        // Handle form submission logic here
+        jobService.addJob(jobPost);
         return "success";
     }
 }
